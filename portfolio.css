@@ -1,0 +1,792 @@
+/* =========================================================
+  GLOBAL VARIABLES (Cozy Research Minimalist dengan Data Grid)
+  ========================================================= */
+:root {
+  --primary: #292524; /* Dark Stone / Hitam Lembut */
+  --primary-hover: #44403c;
+  --primary-soft: #f5f5f4;
+
+  --text-main: #1c1917;
+  --text-muted: #57534e;
+
+  --border: #e7e5e4;
+  --border-strong: #d6d3d1;
+
+  --bg-main: #faf9f6; /* Ivory / Kertas Jurnal Modern */
+  --bg-soft: #f5f5f4;
+  --bg-card: #ffffff;
+
+  --shadow-sm: 0 4px 6px -1px rgba(28, 25, 23, 0.04);
+  --shadow-hover: 0 10px 25px -5px rgba(28, 25, 23, 0.08);
+
+  --radius: 8px;
+}
+
+/* =========================================================
+  RESET & BASE
+  ========================================================= */
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-muted);
+  background-color: var(--bg-main);
+
+  /* GRID PATTERN HALUS: Bikin kesan kertas riset / data grid, anti polos */
+  background-image: radial-gradient(
+    rgba(28, 25, 23, 0.06) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+
+  overflow-x: hidden;
+  line-height: 1.8;
+}
+
+h1,
+h2,
+h3,
+h4,
+.navbar-brand {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+}
+
+/* =========================================================
+  NAVBAR 
+  ========================================================= */
+.site-navbar {
+  min-height: 72px;
+  background: rgba(250, 249, 246, 0.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-link {
+  color: var(--text-muted) !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 8px 18px !important;
+  margin: 0 4px;
+  border-radius: 99px;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--text-main) !important;
+  background-color: var(--primary-soft);
+}
+
+/* Tombol Send Message Spesial di Navbar */
+.btn-nav-contact {
+  background-color: var(--text-main);
+  color: var(--bg-main) !important;
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-nav-contact:hover {
+  background-color: var(--primary-hover) !important;
+  color: var(--bg-main) !important;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+  HERO SECTION
+  ========================================================= */
+.hero-section {
+  min-height: 100vh;
+  padding: 120px 0 80px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.typed-cursor {
+  color: var(--text-main);
+  font-weight: 400;
+}
+
+.badge-role {
+  display: inline-block;
+  background-color: var(--bg-card); /* Pakai card agar tidak tembus grid */
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--border-strong);
+  padding-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content h1 {
+  margin: 12px 0 16px;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.tagline-wrapper {
+  min-height: 70px;
+}
+
+.hero-subtitle {
+  margin: 0 0 24px;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-main);
+}
+
+/* TATA LETAK TOMBOL & SOSMED */
+.hero-actions-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-main {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 32px;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--bg-main);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  border: 1px solid var(--primary);
+}
+
+.btn-main:hover {
+  color: var(--bg-main);
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.hero-socials {
+  display: flex;
+  gap: 12px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius);
+  background-color: var(--bg-card); /* Solid background nutupin grid */
+  border: 1px solid var(--border);
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.social-icon img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: 0.2s ease;
+}
+
+.social-icon:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-soft);
+  transform: translateY(-2px);
+}
+
+.social-icon:hover img {
+  opacity: 1;
+}
+
+/* FOTO (DIKEMBALIKAN KE UKURAN BESAR & PROPORSIONAL) */
+.hero-image-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 380px; /* Sedikit lebih besar dari gambar untuk efek soft */
+  height: 380px;
+  border-radius: 50%;
+  background: rgba(28, 25, 23, 0.04); /* Soft warm grey */
+  filter: blur(40px);
+  z-index: 0;
+}
+
+.profile-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 340px; /* Ukuran dibesarkan kembali */
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top center;
+  border: 8px solid var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s ease;
+}
+
+.profile-img:hover {
+  transform: translateY(-5px);
+}
+
+/* =========================================================
+  SECTIONS UMUM
+  ========================================================= */
+.section-block {
+  padding: 100px 0;
+  scroll-margin-top: 72px;
+}
+
+.section-soft {
+  background-color: var(--bg-soft);
+  /* Pola grid lebih redup di area soft */
+  background-image: radial-gradient(
+    rgba(28, 25, 23, 0.04) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 56px;
+  position: relative;
+  z-index: 1;
+}
+
+.section-header h2 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  display: inline-block;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border-strong);
+  background-color: transparent;
+}
+
+/* --- ABOUT --- */
+.about-box {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  background-color: var(--bg-card);
+  padding: 30px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.about-box p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  margin: 0;
+}
+
+/* --- EXPERIENCE --- */
+.experience-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1; /* Supaya grid tidak tembus */
+}
+
+.experience-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--border-strong);
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+  transition: all 0.3s ease;
+}
+
+.experience-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-hover);
+}
+
+.experience-card:hover::before {
+  background-color: var(--primary);
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.exp-logo-wrap {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background-color: var(--bg-soft);
+  border: 1px solid var(--border);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exp-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.exp-role {
+  font-size: 1.15rem;
+  margin-bottom: 4px;
+}
+
+.exp-company {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.exp-date {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: var(--radius);
+}
+
+/* --- SKILLS & TOOLS --- */
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  max-width: 850px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.tool-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  font-weight: 500;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.tool-badge:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+
+/* --- CERTIFICATIONS --- */
+.cert-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  height: 100%;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.cert-card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-strong);
+}
+
+.cert-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: top;
+  border-bottom: 1px solid var(--border);
+}
+
+.cert-body {
+  padding: 24px;
+  text-align: center;
+}
+
+.cert-body h4 {
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.cert-link {
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--text-main);
+  padding-bottom: 2px;
+}
+
+/* =========================================================
+  PROJECTS CAROUSEL
+  ========================================================= */
+.projects-carousel-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.projects-track-container {
+  overflow: hidden;
+  flex: 1;
+  padding: 12px 4px 30px;
+}
+
+.projects-track {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.project-slide {
+  flex: 0 0 calc((100% - 48px) / 3);
+  min-width: 0;
+}
+
+.project-card {
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-strong);
+}
+
+.project-image-wrap {
+  height: 190px;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.project-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-image-wrap img {
+  transform: scale(1.04);
+}
+
+.project-body {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-body h3 {
+  font-size: 1.15rem;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.project-body p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.btn-project {
+  margin-top: auto;
+  align-self: flex-start;
+  min-height: 40px;
+  padding: 0 22px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  background: var(--bg-card);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-project:hover {
+  border-color: var(--primary);
+  color: #ffffff;
+  background: var(--primary);
+}
+
+/* Tombol Outline (khusus untuk Certificate BPS) */
+.btn-outline-project {
+  margin-top: auto;
+  align-self: flex-start;
+  min-height: 40px;
+  padding: 0 22px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-project:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--bg-soft);
+}
+
+/* CAROUSEL BUTTONS */
+.carousel-btn {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.carousel-btn:hover:not(:disabled) {
+  border-color: var(--text-main);
+  background: var(--bg-soft);
+  transform: translateY(-2px);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--border-strong);
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.carousel-dot.active {
+  background: var(--text-main);
+  transform: scale(1.2);
+}
+
+/* =========================================================
+  CONTACT SECTION
+  ========================================================= */
+.contact-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 48px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  z-index: 1;
+}
+
+.form-control {
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  background-color: var(--bg-soft);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  background-color: var(--bg-card);
+  box-shadow: none;
+  outline: none;
+}
+
+/* =========================================================
+  FOOTER
+  ========================================================= */
+.site-footer {
+  text-align: center;
+  padding: 32px 0;
+  background-color: var(--bg-soft);
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+  RESPONSIVE
+  ========================================================= */
+@media (max-width: 991px) {
+  .hero-section {
+    padding: 120px 0 60px;
+    text-align: center;
+  }
+
+  .profile-img {
+    max-width: 280px;
+    margin-bottom: 24px;
+  }
+
+  .hero-glow {
+    width: 320px;
+    height: 320px;
+  }
+
+  .hero-actions-wrapper {
+    justify-content: center;
+  }
+
+  .project-slide {
+    flex: 0 0 calc((100% - 24px) / 2);
+  }
+  .exp-header {
+    flex-direction: column;
+  }
+  .exp-date {
+    margin-top: 14px;
+  }
+
+  /* Navbar button contact spacing */
+  .btn-nav-contact {
+    display: inline-block;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section-block {
+    padding: 80px 0;
+  }
+  .project-slide {
+    flex: 0 0 100%;
+  }
+  .projects-carousel-wrapper {
+    gap: 0;
+  }
+  .carousel-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero-section {
+    padding: 100px 0 50px;
+  }
+  .hero-content h1 {
+    font-size: 2.3rem;
+  }
+
+  /* Foto di HP lebih besar dan proporsional */
+  .profile-img {
+    max-width: 240px;
+  }
+  .hero-glow {
+    width: 260px;
+    height: 260px;
+  }
+
+  .hero-actions-wrapper {
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .btn-main {
+    width: 100%;
+  }
+  .hero-socials {
+    width: 100%;
+    justify-content: center;
+  }
+}
