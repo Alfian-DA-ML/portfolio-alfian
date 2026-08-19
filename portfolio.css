@@ -162,6 +162,7 @@ img {
   display: flex;
   align-items: center;
   gap: 16px;
+  margin-top: 0px;
 }
 
 .btn-main {
