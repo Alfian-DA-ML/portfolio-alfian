@@ -244,13 +244,15 @@
                       />
                     </div>
                     <div>
-                      <h3 class="exp-role">AI/Machine Learning Engineer</h3>
+                      <h3 class="exp-role">
+                        AI/Machine Learning Engineer (Remote, Volunteer)
+                      </h3>
                       <h4 class="exp-company">
                         AI Innovation Challenge (Omdena)
                       </h4>
                     </div>
                   </div>
-                  <span class="exp-date">July 2026 - Present</span>
+                  <span class="exp-date">July 2026 - October 2026</span>
                 </div>
                 <div class="exp-body"></div>
               </div>
@@ -377,6 +379,30 @@
             <h2>Case Studies & Projects</h2>
           </div>
 
+          <!-- PROJECT CATEGORY FILTER -->
+          <div
+            class="project-filter"
+            role="group"
+            aria-label="Filter projects by category"
+          >
+            <button
+              type="button"
+              class="project-filter-btn active"
+              data-filter="data-science-ai"
+              aria-pressed="true"
+            >
+              Data Science &amp; AI
+            </button>
+            <button
+              type="button"
+              class="project-filter-btn"
+              data-filter="data-analytics"
+              aria-pressed="false"
+            >
+              Data Analytics
+            </button>
+          </div>
+
           <div class="projects-carousel-wrapper">
             <button
               class="carousel-btn carousel-btn-prev"
@@ -389,7 +415,7 @@
             <div class="projects-track-container">
               <div class="projects-track" id="projectsTrack">
                 <!-- PROJECT 1: HYBRID SSA-N-BEATS -->
-                <div class="project-slide">
+                <div class="project-slide" data-category="data-science-ai">
                   <article class="project-card h-100">
                     <div class="project-image-wrap">
                       <img
@@ -430,7 +456,7 @@
                 </div>
 
                 <!-- PROJECT 2: Veritas AI -->
-                <div class="project-slide">
+                <div class="project-slide" data-category="data-science-ai">
                   <article class="project-card h-100">
                     <div class="project-image-wrap">
                       <img
@@ -470,7 +496,7 @@
                 </div>
 
                 <!-- PROJECT 3: Veritas AI -->
-                <div class="project-slide">
+                <div class="project-slide" data-category="data-science-ai">
                   <article class="project-card h-100">
                     <div class="project-image-wrap">
                       <img
@@ -500,7 +526,7 @@
                 </div>
 
                 <!-- PROJECT 4: Veritas AI -->
-                <div class="project-slide">
+                <div class="project-slide" data-category="data-science-ai">
                   <article class="project-card h-100">
                     <div class="project-image-wrap">
                       <img
@@ -532,7 +558,7 @@
                 </div>
 
                 <!-- PROJECT 5: FUZZY C-MEANS -->
-                <div class="project-slide">
+                <div class="project-slide" data-category="data-science-ai">
                   <article class="project-card h-100">
                     <div class="project-image-wrap">
                       <img
@@ -564,7 +590,7 @@
                 </div>
 
                 <!-- PROJECT 4: PUBLIKASI BPS -->
-                <div class="project-slide">
+                <div class="project-slide" data-category="data-analytics">
                   <article class="project-card h-100">
                     <div class="project-image-wrap">
                       <img
@@ -797,16 +823,36 @@
         sectionObserver.observe(section);
       });
 
-      // PROJECT CAROUSEL LOGIC
+      // PROJECT CAROUSEL LOGIC (dengan filter kategori)
       (function () {
         const track = document.getElementById("projectsTrack");
         const prevBtn = document.getElementById("prevBtn");
         const nextBtn = document.getElementById("nextBtn");
         const dotsContainer = document.getElementById("carouselDots");
-        const slides = Array.from(track.querySelectorAll(".project-slide"));
+        const filterBtns = Array.from(
+          document.querySelectorAll(".project-filter-btn"),
+        );
+        const allSlides = Array.from(track.querySelectorAll(".project-slide"));
+
+        // Kategori default saat halaman dibuka
+        let activeCategory = "data-science-ai";
+        // Slide yang sedang tampil (sesuai kategori aktif)
+        let slides = [];
 
         let current = 0;
         let lastWidth = window.innerWidth;
+
+        function applyFilter() {
+          allSlides.forEach((slide) => {
+            slide.classList.toggle(
+              "is-hidden",
+              slide.dataset.category !== activeCategory,
+            );
+          });
+          slides = allSlides.filter(
+            (slide) => !slide.classList.contains("is-hidden"),
+          );
+        }
 
         function getVisibleSlides() {
           if (window.innerWidth >= 992) return 3;
@@ -820,7 +866,11 @@
 
         function buildDots() {
           dotsContainer.innerHTML = "";
-          for (let i = 0; i <= getMaxIndex(); i++) {
+          const maxIndex = getMaxIndex();
+          // Sembunyikan dots kalau tidak ada yang perlu digeser
+          dotsContainer.style.display = maxIndex === 0 ? "none" : "";
+          if (maxIndex === 0) return;
+          for (let i = 0; i <= maxIndex; i++) {
             const dot = document.createElement("button");
             dot.className = "carousel-dot" + (i === current ? " active" : "");
             dot.setAttribute("aria-label", "Go to project slide " + (i + 1));
@@ -840,6 +890,7 @@
         }
 
         function goTo(index) {
+          if (!slides.length) return;
           const maxIndex = getMaxIndex();
           current = Math.max(0, Math.min(index, maxIndex));
           const slideWidth = slides[0].offsetWidth;
@@ -851,6 +902,35 @@
           nextBtn.disabled = current >= maxIndex;
           updateDots();
         }
+
+        function setCategory(category) {
+          if (category === activeCategory) return;
+          activeCategory = category;
+
+          filterBtns.forEach((btn) => {
+            const isActive = btn.dataset.filter === category;
+            btn.classList.toggle("active", isActive);
+            btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+          });
+
+          applyFilter();
+          current = 0;
+
+          // Reset posisi tanpa animasi geser, lalu mainkan efek fade
+          track.style.transition = "none";
+          init();
+          void track.offsetWidth;
+          track.style.transition = "";
+          track.classList.remove("is-switching");
+          void track.offsetWidth;
+          track.classList.add("is-switching");
+        }
+
+        filterBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            setCategory(btn.dataset.filter);
+          });
+        });
 
         prevBtn.addEventListener("click", () => {
           goTo(current - 1);
@@ -909,9 +989,16 @@
 
         function init() {
           current = Math.min(current, getMaxIndex());
+          // Tengahkan card kalau jumlahnya lebih sedikit dari kolom yang tampil
+          track.classList.toggle(
+            "is-centered",
+            slides.length <= getVisibleSlides(),
+          );
           buildDots();
           goTo(current);
         }
+
+        applyFilter();
         init();
       })();
 

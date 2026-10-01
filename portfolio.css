@@ -659,6 +659,80 @@ img {
   transform: scale(1.2);
 }
 
+/* --- PROJECT CATEGORY FILTER --- */
+#projects .section-header {
+  margin-bottom: 32px;
+}
+
+.project-filter {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.project-filter-btn {
+  min-height: 42px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.project-filter-btn:hover:not(.active) {
+  border-color: var(--primary);
+  color: var(--text-main);
+  background: var(--bg-soft);
+  transform: translateY(-2px);
+}
+
+.project-filter-btn.active {
+  background: var(--text-main);
+  border-color: var(--text-main);
+  color: var(--bg-main);
+}
+
+.project-filter-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Slide yang tidak termasuk kategori aktif */
+.project-slide.is-hidden {
+  display: none;
+}
+
+/* Tengahkan card jika jumlahnya sedikit (mis. hanya 1 project) */
+.projects-track.is-centered {
+  justify-content: center;
+}
+
+/* Efek fade saat ganti kategori */
+.projects-track.is-switching {
+  animation: projectsFadeIn 0.4s ease;
+}
+
+@keyframes projectsFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* =========================================================
   CONTACT SECTION
   ========================================================= */
